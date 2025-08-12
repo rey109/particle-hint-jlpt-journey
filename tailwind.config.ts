@@ -61,7 +61,14 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				sakura: {
+					DEFAULT: 'hsl(var(--sakura))',
+					foreground: 'hsl(var(--sakura-foreground))'
+				},
+				crimson: 'hsl(var(--crimson))',
+				cream: 'hsl(var(--cream))',
+				'warm-gray': 'hsl(var(--warm-gray))'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
