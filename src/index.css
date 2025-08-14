@@ -226,6 +226,20 @@ All colors MUST be HSL.
   .theme-toggle {
     @apply transition-all duration-200 hover:bg-accent hover:text-accent-foreground;
   }
+
+  /* New Animation Classes */
+  .animate-spin-slow {
+    animation: spin 4s linear infinite;
+  }
+  
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+  .delay-600 { animation-delay: 600ms; }
+  .delay-700 { animation-delay: 700ms; }
+  .delay-800 { animation-delay: 800ms; }
 }
 
 /* Animations and Custom Utilities */
@@ -249,5 +263,70 @@ All colors MUST be HSL.
       opacity: 1;
       transform: translateY(0);
     }
+  }
+
+  /* Japanese themed utilities */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary to-primary bg-clip-text text-transparent;
+  }
+  
+  .japanese-border {
+    position: relative;
+  }
+  
+  .japanese-border::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary)), transparent);
+  }
+  
+  .sakura-decoration {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .sakura-decoration::before {
+    content: '🌸';
+    position: absolute;
+    font-size: 1.5rem;
+    animation: sakura-fall 10s linear infinite;
+    opacity: 0.3;
+  }
+  
+  .parallax-bg {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  .glass-morphism {
+    backdrop-filter: blur(10px);
+    @apply bg-background/10 border border-border/20;
+  }
+  
+  .dark .glass-morphism {
+    @apply bg-background/20 border-border/30;
+  }
+  
+  .hover-lift {
+    transition: all 0.3s ease;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-elegant);
+  }
+  
+  .glow-on-hover {
+    transition: all 0.3s ease;
+  }
+  
+  .glow-on-hover:hover {
+    box-shadow: 0 0 30px hsl(var(--primary) / 0.4);
   }
 }

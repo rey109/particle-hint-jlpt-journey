@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { QuizQuestion } from "@/data/quiz";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface QuizCardProps {
   question: QuizQuestion;
@@ -20,6 +20,11 @@ export const QuizCard = ({
   userAnswer 
 }: QuizCardProps) => {
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+
+  // Reset selected answer when question changes
+  useEffect(() => {
+    setSelectedAnswer(null);
+  }, [questionNumber]);
 
   const handleAnswerSelect = (answerIndex: number) => {
     if (showResult) return;

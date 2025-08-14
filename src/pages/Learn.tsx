@@ -97,31 +97,103 @@ const Learn = () => {
         {currentParticles.length > 0 && (
           <div className="space-y-6">
             {/* Navigation Controls */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-2">
               <Button
                 variant="outline"
                 onClick={prevParticle}
                 disabled={currentParticles.length <= 1}
-                className="nav-button"
+                className="nav-button flex-shrink-0"
+                size="sm"
               >
-                <ChevronLeft className="h-4 w-4 mr-2" />
-                Sebelumnya
+                <ChevronLeft className="h-4 w-4 md:mr-2" />
+                <span className="hidden md:inline">Sebelumnya</span>
               </Button>
               
-              <div className="text-center">
+              <div className="text-center flex-1 min-w-0">
                 <p className="text-sm text-muted-foreground">
                   {currentIndex + 1} dari {currentParticles.length} partikel
                 </p>
                 <div className="flex gap-1 mt-2 justify-center">
-                  {currentParticles.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentIndex(index)}
-                      className={`w-2 h-2 rounded-full transition-colors ${
-                        index === currentIndex ? 'bg-primary' : 'bg-muted'
-                      }`}
-                    />
-                  ))}
+                  {/* Mobile: tampilkan angka dengan border */}
+                  <div className="md:hidden flex items-center gap-2">
+                    {(() => {
+                      const totalPages = currentParticles.length;
+                      const maxVisiblePages = 3;
+                      
+                      if (totalPages <= maxVisiblePages) {
+                        // Jika total halaman <= 3, tampilkan semua
+                        return Array.from({ length: totalPages }, (_, index) => (
+                          <button
+                            key={index}
+                            onClick={() => setCurrentIndex(index)}
+                            className={`w-6 h-6 text-xs rounded border transition-all ${
+                              index === currentIndex 
+                                ? 'bg-primary text-primary-foreground border-primary' 
+                                : 'bg-background text-muted-foreground border-border hover:border-primary'
+                            }`}
+                          >
+                            {index + 1}
+                          </button>
+                        ));
+                      }
+                      
+                      const pages = [];
+                      
+                      if (currentIndex <= 1) {
+                        pages.push(0, 1, 2);
+                        if (totalPages > 3) {
+                          pages.push(-1); 
+                        }
+                      } else if (currentIndex >= totalPages - 2) {
+                        
+                        if (totalPages > 3) {
+                          pages.push(-1); 
+                        }
+                        pages.push(totalPages - 3, totalPages - 2, totalPages - 1);
+                      } else {
+                        
+                        pages.push(-1); 
+                        pages.push(currentIndex - 1, currentIndex, currentIndex + 1);
+                        pages.push(-1); 
+                      }
+                      
+                      return pages.map((pageIndex, i) => {
+                        if (pageIndex === -1) {
+                          return (
+                            <span key={`ellipsis-${i}`} className="text-muted-foreground px-1">
+                              ...
+                            </span>
+                          );
+                        }
+                        
+                        return (
+                          <button
+                            key={pageIndex}
+                            onClick={() => setCurrentIndex(pageIndex)}
+                            className={`w-6 h-6 text-xs rounded border transition-all ${
+                              pageIndex === currentIndex 
+                                ? 'bg-primary text-primary-foreground border-primary' 
+                                : 'bg-background text-muted-foreground border-border hover:border-primary'
+                            }`}
+                          >
+                            {pageIndex + 1}
+                          </button>
+                        );
+                      });
+                    })()}
+                  </div>
+                  
+                  <div className="hidden md:flex gap-1">
+                    {currentParticles.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentIndex(index)}
+                        className={`w-2 h-2 rounded-full transition-colors ${
+                          index === currentIndex ? 'bg-primary' : 'bg-muted'
+                        }`}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
 
@@ -129,10 +201,11 @@ const Learn = () => {
                 variant="outline"
                 onClick={nextParticle}
                 disabled={currentParticles.length <= 1}
-                className="nav-button"
+                className="nav-button flex-shrink-0"
+                size="sm"
               >
-                Selanjutnya
-                <ChevronRight className="h-4 w-4 ml-2" />
+                <span className="hidden md:inline">Selanjutnya</span>
+                <ChevronRight className="h-4 w-4 md:ml-2" />
               </Button>
             </div>
 
