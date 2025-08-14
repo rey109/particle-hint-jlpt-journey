@@ -73,7 +73,7 @@ export const QuizCard = ({
       <CardContent className="space-y-6">
         <div className="question-content">
           <p className="text-lg font-medium mb-2">{question.question}</p>
-          {question.japanese && (
+          {(showResult || selectedAnswer !== null) && question.japanese && (
             <div className="japanese-text">
               <p className="text-xl font-bold text-primary">{question.japanese}</p>
               {question.furigana && (
@@ -82,7 +82,7 @@ export const QuizCard = ({
             </div>
           )}
         </div>
-
+ 
         <div className="options-grid">
           {question.options.map((option, index) => (
             <Button
@@ -101,7 +101,7 @@ export const QuizCard = ({
           ))}
         </div>
 
-        {showResult && (
+        {(showResult || selectedAnswer !== null) && (
           <div className="result-explanation">
             <div className="explanation-card">
               <h4 className="font-semibold text-primary mb-2">Penjelasan:</h4>

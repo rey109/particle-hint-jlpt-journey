@@ -31,11 +31,11 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-cream/20 to-sakura/30 relative overflow-hidden dark:from-background dark:via-background/80 dark:to-background/60">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 text-4xl opacity-20 animate-float dark:opacity-10">🌸</div>
-        <div className="absolute top-40 right-20 text-3xl opacity-15 animate-float dark:opacity-8" style={{ animationDelay: '1s' }}>🌸</div>
-        <div className="absolute bottom-40 left-20 text-2xl opacity-20 animate-float dark:opacity-10" style={{ animationDelay: '2s' }}>🌸</div>
-        <div className="absolute top-60 left-1/3 text-3xl opacity-10 animate-float dark:opacity-5" style={{ animationDelay: '0.5s' }}>🌸</div>
-        <div className="absolute bottom-20 right-1/3 text-4xl opacity-15 animate-float dark:opacity-8" style={{ animationDelay: '1.5s' }}>🌸</div>
+        <div className="absolute top-20 left-10 text-4xl opacity-60 animate-float dark:opacity-40">🌸</div>
+        <div className="absolute top-40 right-20 text-3xl opacity-60 animate-float dark:opacity-40" style={{ animationDelay: '1s' }}>🌸</div>
+        <div className="absolute bottom-40 left-20 text-2xl opacity-60 animate-float dark:opacity-40" style={{ animationDelay: '2s' }}>🌸</div>
+        <div className="absolute top-60 left-1/3 text-3xl opacity-60 animate-float dark:opacity-40" style={{ animationDelay: '0.5s' }}>🌸</div>
+        <div className="absolute bottom-20 right-1/3 text-4xl opacity-60 animate-float dark:opacity-40" style={{ animationDelay: '1.5s' }}>🌸</div>
       </div>
 
       <header className="container mx-auto px-4 py-6 relative z-10">

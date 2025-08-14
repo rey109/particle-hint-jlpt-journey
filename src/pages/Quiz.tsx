@@ -54,16 +54,15 @@ const Quiz = () => {
 
     setResults(prev => [...prev, result]);
     setShowQuestionResult(true);
+  };
 
-    // Auto advance after showing result
-    setTimeout(() => {
-      if (currentQuestionIndex < questions.length - 1) {
-        setCurrentQuestionIndex(prev => prev + 1);
-        setShowQuestionResult(false);
-      } else {
-        setQuizState('result');
-      }
-    }, 2000);
+  const nextQuestion = () => {
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(prev => prev + 1);
+      setShowQuestionResult(false);
+    } else {
+      setQuizState('result');
+    }
   };
 
   const resetQuiz = () => {
@@ -175,6 +174,19 @@ const Quiz = () => {
               showResult={showQuestionResult}
               userAnswer={results[currentQuestionIndex]?.userAnswer}
             />
+
+            {/* Next Button */}
+            {showQuestionResult && (
+              <div className="flex justify-end">
+                <Button 
+                  onClick={nextQuestion} 
+                  size="lg"
+                  className="min-w-[120px]"
+                >
+                  {currentQuestionIndex < questions.length - 1 ? 'Selanjutnya' : 'Lihat Hasil'}
+                </Button>
+              </div>
+            )}
           </div>
         )}
 
