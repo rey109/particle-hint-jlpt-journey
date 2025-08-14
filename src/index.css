@@ -189,7 +189,35 @@ All colors MUST be HSL.
   }
   
   .option-button {
-    @apply transition-all duration-200 hover:shadow-soft;
+    @apply transition-all duration-200;
+  }
+  
+  /* Only apply hover effects on devices that support hover (desktop) */
+  @media (hover: hover) {
+    .option-button:hover {
+      @apply shadow-soft;
+    }
+  }
+
+  /* Disable hover effects for quiz option buttons on touch devices but keep selected state */
+  .quiz-option-no-mobile-hover {
+    @apply transition-all duration-200;
+  }
+  
+  /* On touch devices, disable hover effects but keep the button variants working */
+  @media (hover: none) {
+    .quiz-option-no-mobile-hover:hover:not(:disabled) {
+      /* Only disable hover shadow, keep other styling intact */
+      box-shadow: none !important;
+      transform: none !important;
+    }
+  }
+  
+  /* On hover-capable devices, apply hover effects */
+  @media (hover: hover) {
+    .quiz-option-no-mobile-hover:hover:not(:disabled) {
+      @apply shadow-soft;
+    }
   }
   
   .result-explanation {

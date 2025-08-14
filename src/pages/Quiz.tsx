@@ -168,6 +168,7 @@ const Quiz = () => {
 
             {/* Current Question */}
             <QuizCard
+              key={currentQuestionIndex}
               question={questions[currentQuestionIndex]}
               questionNumber={currentQuestionIndex + 1}
               onAnswer={handleAnswer}

@@ -21,26 +21,33 @@ export const QuizCard = ({
 }: QuizCardProps) => {
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
 
-  // Reset selected answer when question changes
+  // Reset selected answer when question changes or when showResult changes
   useEffect(() => {
     setSelectedAnswer(null);
-  }, [questionNumber]);
+  }, [questionNumber, showResult]);
 
   const handleAnswerSelect = (answerIndex: number) => {
+    // Don't allow selection if showing results
     if (showResult) return;
     
-    setSelectedAnswer(answerIndex);
-    onAnswer(answerIndex);
+    // Only update if this is a new selection (prevent double selection)
+    if (selectedAnswer !== answerIndex) {
+      setSelectedAnswer(answerIndex);
+      onAnswer(answerIndex);
+    }
   };
 
   const getButtonVariant = (index: number) => {
-    if (!showResult && selectedAnswer === null) return "outline";
-    if (!showResult && selectedAnswer === index) return "default";
-    if (!showResult) return "outline";
+    // If showing results, use userAnswer prop for highlighting
+    if (showResult) {
+      if (index === question.correctAnswer) return "default";
+      if (userAnswer === index && index !== question.correctAnswer) return "destructive";
+      return "outline";
+    }
     
-    // Show result mode
-    if (index === question.correctAnswer) return "default";
-    if (userAnswer === index && index !== question.correctAnswer) return "destructive";
+    // If not showing results, use local selectedAnswer state
+    if (selectedAnswer === null) return "outline";
+    if (selectedAnswer === index) return "default";
     return "outline";
   };
 
@@ -84,7 +91,7 @@ export const QuizCard = ({
               size="lg"
               onClick={() => handleAnswerSelect(index)}
               disabled={showResult}
-              className="option-button w-full justify-start text-left p-4 h-auto"
+              className="option-button quiz-option-no-mobile-hover w-full justify-start text-left p-4 h-auto"
             >
               <span className="mr-3 font-bold">
                 {String.fromCharCode(65 + index)}.
