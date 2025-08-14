@@ -156,7 +156,6 @@ const Learn = () => {
                         pages.push(currentIndex - 1, currentIndex, currentIndex + 1);
                         pages.push(-1); 
                       }
-                      
                       return pages.map((pageIndex, i) => {
                         if (pageIndex === -1) {
                           return (
