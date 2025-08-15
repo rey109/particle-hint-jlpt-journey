@@ -55,12 +55,12 @@ export const ParticleCard = ({ particle, onPlayAudio }: ParticleCardProps) => {
       <CardContent className="space-y-4">
         <div>
           <h4 className="font-semibold text-foreground mb-1">Definisi:</h4>
-          <p className="text-muted-foreground">{particle.definition}</p>
+          <p className="text-foreground">{particle.definition}</p>
         </div>
 
         <div>
           <h4 className="font-semibold text-foreground mb-1">Fungsi:</h4>
-          <p className="text-muted-foreground">{particle.function}</p>
+          <p className="text-foreground">{particle.function}</p>
         </div>
 
         <div>
@@ -78,7 +78,7 @@ export const ParticleCard = ({ particle, onPlayAudio }: ParticleCardProps) => {
                         {example.furigana}
                       </p>
                     )}
-                    <p className="text-muted-foreground">
+                    <p className="text-foreground">
                       {example.translation}
                     </p>
                   </div>

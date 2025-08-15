@@ -39,7 +39,7 @@ All colors MUST be HSL.
     --radius: 0.75rem;
 
     /* Japanese inspired colors */
-    --sakura: 340 50% 85%;
+    --sakura: 340 100% 85%;
     --sakura-foreground: 0 5% 15%;
     --crimson: 355 85% 55%;
     --cream: 35 25% 90%;
@@ -102,7 +102,7 @@ All colors MUST be HSL.
     --ring: 355 75% 65%;
 
     /* Japanese inspired dark colors */
-    --sakura: 340 30% 25%;
+    --sakura: 340 100% 25%;
     --sakura-foreground: 30 15% 95%;
     --crimson: 355 75% 65%;
     --cream: 35 10% 20%;

@@ -64,7 +64,7 @@ const Learn = () => {
         {/* Page Title */}
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-primary mb-4">Belajar Partikel</h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-foreground max-w-2xl mx-auto">
             Pelajari partikel bahasa Jepang satu per satu dengan penjelasan lengkap dan contoh kalimat.
           </p>
         </div>

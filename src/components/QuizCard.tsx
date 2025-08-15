@@ -58,32 +58,46 @@ export const QuizCard = ({
   };
 
   return (
-    <Card className="quiz-card">
-      <CardHeader>
+    <Card className="quiz-card backdrop-blur-sm bg-background/90 border-primary/20 shadow-xl hover:shadow-2xl transition-all duration-300">
+      <CardHeader className="bg-gradient-to-r from-primary/5 to-sakura/5 border-b border-primary/20">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-xl">
-            Soal {questionNumber}
+          <CardTitle className="text-xl flex items-center gap-2">
+            <span className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-bold text-sm">
+              {questionNumber}
+            </span>
+            問題 {questionNumber}
           </CardTitle>
-          <Badge variant="secondary">
+          <Badge variant="secondary" className="bg-gradient-to-r from-sakura/20 to-cream/20 border border-sakura/30">
             {categoryLabels[question.category]}
           </Badge>
         </div>
       </CardHeader>
       
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-6 p-6">
         <div className="question-content">
-          <p className="text-lg font-medium mb-2">{question.question}</p>
-          {(showResult || selectedAnswer !== null) && question.japanese && (
-            <div className="japanese-text">
-              <p className="text-xl font-bold text-primary">{question.japanese}</p>
-              {question.furigana && (
-                <p className="text-sm text-muted-foreground">{question.furigana}</p>
+          <p className="text-lg font-medium mb-4 leading-relaxed">
+            {question.question_sentence}
+          </p>
+          {/* Display furigana_question above question_japanese only when user hasn't answered */}
+          {!(showResult || selectedAnswer !== null) && (
+            <div className="japanese-question bg-gradient-to-r from-primary/5 to-sakura/5 p-4 rounded-xl border border-primary/10 mb-4">
+              {question.furigana_question && (
+                <p className="text-sm text-foreground/80 mb-2 font-medium">{question.furigana_question}</p>
               )}
+              <p className="text-2xl font-bold text-primary">{question.question_japanese}</p>
+            </div>
+          )}
+          {(showResult || selectedAnswer !== null) && question.japanese && (
+            <div className="japanese-text bg-gradient-to-r from-primary/10 to-sakura/10 p-4 rounded-xl border border-primary/20 animate-fade-in">
+              {question.furigana && (
+                <p className="text-sm text-foreground/80">{question.furigana}</p>
+              )}
+              <p className="text-2xl font-bold text-primary mb-2">{question.japanese}</p>
             </div>
           )}
         </div>
  
-        <div className="options-grid">
+        <div className="options-grid space-y-3">
           {question.options.map((option, index) => (
             <Button
               key={index}
@@ -91,21 +105,45 @@ export const QuizCard = ({
               size="lg"
               onClick={() => handleAnswerSelect(index)}
               disabled={showResult}
-              className="option-button quiz-option-no-mobile-hover w-full justify-start text-left p-4 h-auto"
+              className={`option-button quiz-option-no-mobile-hover w-full justify-start text-left p-4 h-auto transition-all duration-300 hover:scale-[1.02] hover:shadow-lg ${
+          selectedAnswer === index && !showResult ? 'ring-2 ring-primary/50 shadow-lg' : ''
+              } ${
+          showResult && index === question.correctAnswer ? 'ring-2 ring-green-500 bg-green-100 dark:bg-green-900 border-green-400 shadow-green-200/50 shadow-lg' : ''
+              } ${
+          showResult && userAnswer === index && index !== question.correctAnswer ? 'ring-2 ring-red-500 bg-red-100 dark:bg-red-900 border-red-400 shadow-red-200/50 shadow-lg' : ''
+              } ${
+          showResult && index !== question.correctAnswer && userAnswer !== index ? 'opacity-60' : ''
+              }`}
             >
-              <span className="mr-3 font-bold">
-                {String.fromCharCode(65 + index)}.
+              <span className={`mr-3 font-bold flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
+          showResult && index === question.correctAnswer ? 'bg-green-500 text-white' :
+          showResult && userAnswer === index && index !== question.correctAnswer ? 'bg-red-500 text-white' :
+          'bg-gradient-to-r from-primary/20 to-sakura/20'
+              }`}>
+          {String.fromCharCode(65 + index)}
               </span>
-              <span className="text-lg">{option}</span>
+              <span className={`text-lg flex-1 ${
+          showResult && index === question.correctAnswer ? 'font-semibold text-green-700 dark:text-green-300' :
+          showResult && userAnswer === index && index !== question.correctAnswer ? 'font-semibold text-red-700 dark:text-red-300' :
+          ''
+              }`}>{option}</span>
+              {showResult && index === question.correctAnswer && (
+          <span className="text-green-600 dark:text-green-400 font-bold text-xl">✓</span>
+              )}
+              {showResult && userAnswer === index && index !== question.correctAnswer && (
+          <span className="text-red-600 dark:text-red-400 font-bold text-xl">✗</span>
+              )}
             </Button>
           ))}
         </div>
 
         {(showResult || selectedAnswer !== null) && (
-          <div className="result-explanation">
-            <div className="explanation-card">
-              <h4 className="font-semibold text-primary mb-2">Penjelasan:</h4>
-              <p className="text-muted-foreground">{question.explanation}</p>
+          <div className="result-explanation animate-fade-in">
+            <div className="explanation-card bg-gradient-to-r from-cream/30 to-sakura/30 p-4 rounded-xl border border-primary/20 backdrop-blur">
+              <h4 className="font-semibold text-primary mb-2 flex items-center gap-2">
+                💡 解説 (Kaisetsu):
+              </h4>
+              <p className="text-foreground leading-relaxed">{question.explanation}</p>
             </div>
           </div>
         )}
